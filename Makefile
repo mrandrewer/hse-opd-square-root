@@ -2,10 +2,10 @@ install:
 	npm ci
 
 build:
-	vite build
+	npx vite build
 
 develop:
-	vite
+	npx vite
 
 lint:
 	npx eslint .
