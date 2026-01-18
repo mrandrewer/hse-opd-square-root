@@ -1,8 +1,8 @@
-import { calculateRoot } from "../utils/mathOperations";
+import { calculateRoot, simplifyRoot } from "../utils/mathOperations";
 import React from 'react';
 import { Box, TextField, Button, Alert, Typography, FormHelperText } from '@mui/material';
 
-function ValueCalculator() {
+function ValueCalculator({ mode = "calculate" }) {
 
     const [expression, setExpression] = React.useState('');
     const [precision, setPrecision] = React.useState('6');
@@ -32,8 +32,14 @@ function ValueCalculator() {
             return;
         }
         try {
-            const calculatedResult = calculateRoot(expression, parseInt(precision));
-            setResult(calculatedResult);
+
+            if (mode === "calculate") {
+                const calculatedResult = calculateRoot(expression, parseInt(precision));
+                setResult(calculatedResult);
+            } else {
+                const simplifiedExpression = simplifyRoot(expression);
+                setResult(simplifiedExpression);
+            }
         } catch (err) {
             setError({
                 hasError: true,
@@ -42,6 +48,7 @@ function ValueCalculator() {
         }
     }
     return (
+
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <TextField
                 id="expression"
@@ -58,20 +65,23 @@ function ValueCalculator() {
             <FormHelperText sx={{ ml: 0, '&:empty': { mt: 0 } }}>
                 Enter expression
             </FormHelperText>
-            <TextField
-                id="precision"
-                name="precision"
-                type="number"
-                min={0}
-                max={64}
-                fullWidth
-                variant="outlined"
-                value={precision}
-                onChange={handlePrecisionChange}
-            />
-            <FormHelperText sx={{ ml: 0, '&:empty': { mt: 0 } }}>
-                Enter precision value 0 and 64
-            </FormHelperText>
+            {mode === "calculate" && <>
+                <TextField
+                    id="precision"
+                    name="precision"
+                    type="number"
+                    min={0}
+                    max={64}
+                    fullWidth
+                    variant="outlined"
+                    value={precision}
+                    onChange={handlePrecisionChange}
+                />
+                <FormHelperText sx={{ ml: 0, '&:empty': { mt: 0 } }}>
+                    Enter precision value 0 and 64
+                </FormHelperText>
+            </>
+            }
             <Button
                 variant="contained"
                 onClick={calculate}

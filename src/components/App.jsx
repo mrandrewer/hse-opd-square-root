@@ -1,25 +1,43 @@
+import React from 'react';
 import ValueCalculator from './ValueCalculator.jsx'
-import FormulaCalculator from './FormulaCalculator.jsx';
-import Button from '@mui/material/Button';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import '../styles/App.scss'
+import { Container, Typography, Stack } from '@mui/material';
 
 function App() {
+
+  const [mode, setMode] = React.useState("calculate");
+  const haldleMode = (event, newMode) => {
+    setMode(newMode);
+  };
   return (
-    <>
-      <div className="container">
-        <div className="title">
-          <h1>√ Square Root Calculator</h1>
-          <p>Calculate and simplify square root expressions with variables</p>
-        </div>
-        <div>
-          <Button variant="contained" color="primary">
-            My First MUI Button
-          </Button>
-          <ValueCalculator />
-          <FormulaCalculator />
-        </div>
-      </div>
-    </>
+    <Container maxWidth="sm">
+      <Stack spacing={2}>
+        <Typography variant="h4" >
+          √ Square Root Calculator
+        </Typography>
+        <Typography variant="body1" >
+          Calculate and simplify square root expressions with variables
+        </Typography>
+        <ToggleButtonGroup
+          color="primary"
+          value={mode}
+          exclusive
+          onChange={haldleMode}
+          aria-label="calculation mode"
+          sx={{ alignSelf: 'center' }}
+        >
+          <ToggleButton value="calculate" aria-label="calculate value">
+            Calculate value
+          </ToggleButton>
+          <ToggleButton value="simplify" aria-label="simplify expression">
+            Simplify expression
+          </ToggleButton>
+        </ToggleButtonGroup>
+        <ValueCalculator mode={mode} />
+      </Stack>
+    </Container>
   )
 }
 
