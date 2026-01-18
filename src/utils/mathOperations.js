@@ -1,4 +1,6 @@
-import * as math from 'mathjs';
+import * as mathjs from 'mathjs';
+
+const math = mathjs.create(mathjs.all);
 
 function calculateRoot(expression, precision = null) {
     math.config({
