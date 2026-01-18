@@ -1,30 +1,35 @@
+import '../styles/App.scss'
 import React from 'react';
-import ValueCalculator from './ValueCalculator.jsx'
+import { useTranslation } from 'react-i18next';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import '../styles/App.scss'
 import { Container, Typography, Stack } from '@mui/material';
+import ValueCalculator from './ValueCalculator.jsx'
+import LanguageSwitcher from './LanguageSwitcher.jsx';
 
 function App() {
+  const { t } = useTranslation();
 
   const [mode, setMode] = React.useState("calculate");
-  const haldleMode = (event, newMode) => {
+  const handleMode = (event, newMode) => {
     setMode(newMode);
   };
+
   return (
     <Container maxWidth="sm">
+      <LanguageSwitcher />
       <Stack spacing={2}>
         <Typography variant="h4" >
-          √ Square Root Calculator
+          {t("header")}
         </Typography>
         <Typography variant="body1" >
-          Calculate and simplify square root expressions with variables
+          {t("description")}
         </Typography>
         <ToggleButtonGroup
           color="primary"
           value={mode}
           exclusive
-          onChange={haldleMode}
+          onChange={handleMode}
           aria-label="calculation mode"
           sx={{ alignSelf: 'center' }}
         >
