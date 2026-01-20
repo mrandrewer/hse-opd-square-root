@@ -34,10 +34,10 @@ function App() {
           sx={{ alignSelf: 'center' }}
         >
           <ToggleButton value="calculate" aria-label="calculate value">
-            Calculate value
+            {t("mode.calculate")}
           </ToggleButton>
           <ToggleButton value="simplify" aria-label="simplify expression">
-            Simplify expression
+            {t("mode.simplify")}
           </ToggleButton>
         </ToggleButtonGroup>
         <ValueCalculator mode={mode} />

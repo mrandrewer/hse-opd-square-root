@@ -1,8 +1,10 @@
-import { calculateRoot, simplifyRoot } from "../utils/mathOperations";
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, TextField, Button, Alert, Typography, FormHelperText } from '@mui/material';
+import { calculateRoot, simplifyRoot } from "../utils/mathOperations";
 
 function ValueCalculator({ mode = "calculate" }) {
+    const { t } = useTranslation();
 
     const [expression, setExpression] = React.useState('');
     const [precision, setPrecision] = React.useState('6');
@@ -28,7 +30,7 @@ function ValueCalculator({ mode = "calculate" }) {
         setResult(null);
         setError({ hasError: false, message: '' });
         if (expression === "") {
-            setError({ hasError: true, message: 'Expression cannot be empty' });
+            setError({ hasError: true, message: t("errors.emptyExpression") });
             return;
         }
         try {
@@ -43,7 +45,7 @@ function ValueCalculator({ mode = "calculate" }) {
         } catch (err) {
             setError({
                 hasError: true,
-                message: err.message ?? 'Invalid expression'
+                message: err.message ?? t("errors.invalidExpression")
             });
         }
     }
@@ -54,7 +56,7 @@ function ValueCalculator({ mode = "calculate" }) {
                 id="expression"
                 name="expression"
                 type="text"
-                label="Expression"
+                label={t("form.expressionLabel")}
                 placeholder="4"
                 required
                 fullWidth
@@ -63,7 +65,7 @@ function ValueCalculator({ mode = "calculate" }) {
                 onChange={handleExpressionChange}
             />
             <FormHelperText sx={{ ml: 0, '&:empty': { mt: 0 } }}>
-                Enter expression
+                {t("form.expressionHint")}
             </FormHelperText>
             {mode === "calculate" && <>
                 <TextField
@@ -78,7 +80,7 @@ function ValueCalculator({ mode = "calculate" }) {
                     onChange={handlePrecisionChange}
                 />
                 <FormHelperText sx={{ ml: 0, '&:empty': { mt: 0 } }}>
-                    Enter precision value 0 and 64
+                    {t("form.precisionHint")}
                 </FormHelperText>
             </>
             }
@@ -87,14 +89,15 @@ function ValueCalculator({ mode = "calculate" }) {
                 onClick={calculate}
                 sx={{ width: { xs: '100%', sm: 'fit-content' } }}
             >
-                Calculate
+                {t("form.btnCalculateLabel")}
             </Button>
+
             {/* Display Result */}
             {
                 result !== null && !error.hasError && (
                     <Alert severity="success" sx={{ mt: 1 }}>
                         <Typography variant="body1">
-                            Result: <strong>{result}</strong>
+                            {t("form.resultHint")}: <strong>{result}</strong>
                         </Typography>
                     </Alert>
                 )
@@ -105,7 +108,7 @@ function ValueCalculator({ mode = "calculate" }) {
                 error.hasError && (
                     <Alert severity="error" sx={{ mt: 1 }}>
                         <Typography variant="body1">
-                            {error.message}
+                            {t("form.resultHint")}: {error.message}
                         </Typography>
                     </Alert>
                 )
