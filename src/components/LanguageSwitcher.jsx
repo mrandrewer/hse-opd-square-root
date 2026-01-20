@@ -7,6 +7,9 @@ const LanguageSwitcher = () => {
     const { i18n } = useTranslation();
     const [anchorEl, setAnchorEl] = useState(null);
 
+    const availableLanguages = Object.keys(i18n.services.resourceStore.data);
+    const currentLanguage = i18n.language.split('-')[0];
+
     const handleClick = (event) => setAnchorEl(event.currentTarget);
     const handleClose = () => setAnchorEl(null);
 
@@ -22,11 +25,18 @@ const LanguageSwitcher = () => {
                 onClick={handleClick}
                 color="inherit"
             >
-                {i18n.language}
+                {currentLanguage.toUpperCase()}
             </Button>
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-                <MenuItem onClick={() => changeLanguage('en')}>English</MenuItem>
-                <MenuItem onClick={() => changeLanguage('ru')}>Русский</MenuItem>
+                {availableLanguages.map((lang) => (
+                    <MenuItem
+                        key={lang}
+                        onClick={() => changeLanguage(lang)}
+                        selected={currentLanguage === lang}
+                    >
+                        {lang.toUpperCase()}
+                    </MenuItem>
+                ))}
             </Menu>
         </>
     );
