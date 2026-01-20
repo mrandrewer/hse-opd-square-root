@@ -2,16 +2,16 @@ import * as mathjs from 'mathjs';
 
 const math = mathjs.create(mathjs.all);
 
-function calculateRoot(expression, precision = null) {
+function calculateRoot(expression, precision = 64) {
     math.config({
         number: 'BigNumber',
-        precision: precision ?? 64,
+        precision: 64,
         relTol: 1e-60,
         absTol: 1e-63
     })
     const node = math.parse(`sqrt(${expression})`);
     const value = node.evaluate();
-    return value.toString();
+    return math.format(value, { precision: precision });
 }
 
 function simplifyRoot(expression) {
