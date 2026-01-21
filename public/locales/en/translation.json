@@ -9,7 +9,7 @@
         "expressionLabel": "Expression",
         "expressionHint": "Enter expression",
         "precisionLabel": "Precision",
-        "precisionHint": "Enter precision value between 0 and 64",
+        "precisionHint": "Enter number of significant digits between 1 and 64",
         "btnCalculateLabel": "Calculate",
         "resultHint": "Result",
         "errortHint": "Error"

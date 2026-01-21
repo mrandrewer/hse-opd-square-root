@@ -9,7 +9,7 @@
         "expressionLabel": "Выражение",
         "expressionHint": "Введите выраженние",
         "precisionLabel": "Точность",
-        "precisionHint": "Укажите точность от 0 до 64",
+        "precisionHint": "Укажите количество значимых разрядов от 1 до 64",
         "btnCalculateLabel": "Вычислить",
         "resultHint": "Результат",
         "errortHint": "Ошибка"

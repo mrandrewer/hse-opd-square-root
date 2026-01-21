@@ -55,7 +55,6 @@ function ValueCalculator({ mode = "calculate" }) {
             <TextField
                 id="expression"
                 name="expression"
-                type="text"
                 label={t("form.expressionLabel")}
                 placeholder="4"
                 required
@@ -71,13 +70,19 @@ function ValueCalculator({ mode = "calculate" }) {
                 <TextField
                     id="precision"
                     name="precision"
-                    type="number"
-                    min={0}
-                    max={64}
+                    label={t("form.precisionLabel")}
                     fullWidth
                     variant="outlined"
                     value={precision}
                     onChange={handlePrecisionChange}
+                    slotProps={{
+                        htmlInput: {
+                            type: 'number',
+                            min: 1,
+                            max: 64,
+                            step: 1
+                        }
+                    }}
                 />
                 <FormHelperText sx={{ ml: 0, '&:empty': { mt: 0 } }}>
                     {t("form.precisionHint")}
