@@ -17,7 +17,7 @@ function App() {
 
   React.useEffect(() => {
     document.title = t(`header`);
-  }, [location.pathname, t]);
+  }, [t]);
 
   return (
     <Container maxWidth="sm">
