@@ -15,6 +15,10 @@ function App() {
     setMode(newMode);
   };
 
+  React.useEffect(() => {
+    document.title = t(`header`);
+  }, [location.pathname, t]);
+
   return (
     <Container maxWidth="sm">
       <LanguageSwitcher />
