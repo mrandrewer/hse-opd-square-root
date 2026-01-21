@@ -6,8 +6,24 @@ import LanguageIcon from '@mui/icons-material/Language';
 const LanguageSwitcher = () => {
     const { i18n } = useTranslation();
     const [anchorEl, setAnchorEl] = useState(null);
+    const [langList, setLangList] = useState([]);
 
-    const handleClick = (event) => setAnchorEl(event.currentTarget);
+    const currentLanguage = i18n.language.split('-')[0];
+
+    const handleClick = async (event) => {
+        const buttonElement = event.currentTarget;
+        try {
+            const response = await fetch('/lang_list.json');
+            const data = await response.json();
+            setLangList(data)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            console.error('Default to loaded languages:', error);
+            const availableLanguages = Object.keys(i18n.services.resourceStore.data);
+            setLangList(availableLanguages)
+        }
+        setAnchorEl(buttonElement);
+    }
     const handleClose = () => setAnchorEl(null);
 
     const changeLanguage = (lng) => {
@@ -22,11 +38,18 @@ const LanguageSwitcher = () => {
                 onClick={handleClick}
                 color="inherit"
             >
-                {i18n.language}
+                {currentLanguage.toUpperCase()}
             </Button>
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-                <MenuItem onClick={() => changeLanguage('en')}>English</MenuItem>
-                <MenuItem onClick={() => changeLanguage('ru')}>Русский</MenuItem>
+                {langList.map((lang) => (
+                    <MenuItem
+                        key={lang}
+                        onClick={() => changeLanguage(lang)}
+                        selected={currentLanguage === lang}
+                    >
+                        {lang.toUpperCase()}
+                    </MenuItem>
+                ))}
             </Menu>
         </>
     );
