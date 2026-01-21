@@ -43,9 +43,13 @@ function ValueCalculator({ mode = "calculate" }) {
                 setResult(simplifiedExpression);
             }
         } catch (err) {
+            let message = err.message ?? t("errors.invalidExpression");
+            if (message.toLowerCase().includes("convert complex number to node")) {
+                message = t("errors.unsupportedComplexSimplification");
+            }
             setError({
                 hasError: true,
-                message: err.message ?? t("errors.invalidExpression")
+                message: message
             });
         }
     }

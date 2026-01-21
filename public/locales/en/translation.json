@@ -16,6 +16,7 @@
     },
     "errors": {
         "emptyExpression": "Expression cannot be empty",
-        "invalidExpression": "Invalid expression"
+        "invalidExpression": "Invalid expression",
+        "unsupportedComplexSimplification": "Simplication does not support complex numbers, you can calculate expression value instead"
     }
 }
